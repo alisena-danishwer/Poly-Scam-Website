@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PolyScam</title>
+    <title>Monopoly: Scam Protection for Young Malaysians</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --monopoly-blue: #1a237e;
@@ -11,6 +12,8 @@
             --monopoly-green: #1b5e20;
             --monopoly-yellow: #f57f17;
             --monopoly-purple: #4a148c;
+            --monopoly-light-blue: #0288d1;
+            --monopoly-pink: #c2185b;
             --light-bg: #f5f5f5;
             --card-bg: #ffffff;
         }
@@ -82,6 +85,15 @@
         
         nav a:hover {
             background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
         .hero {
@@ -156,6 +168,7 @@
             padding: 1.5rem;
             color: white;
             font-weight: 600;
+            text-align: center;
         }
         
         .scam-card-body {
@@ -294,6 +307,7 @@
             font-size: 1.5rem;
         }
         
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -301,12 +315,80 @@
             }
             
             nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                display: none;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 15px;
             }
             
             .hero h2 {
                 font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            
+            .scam-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .tips-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .resources-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-container {
+                padding: 1.5rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .scam-card-header, .scam-card-body {
+                padding: 1rem;
+            }
+            
+            .tip-card {
+                padding: 1rem;
+            }
+            
+            .resource-card {
+                padding: 1rem;
             }
         }
     </style>
@@ -317,9 +399,12 @@
             <div class="header-content">
                 <div class="logo">
                     <span class="logo-icon">🎲</span>
-                    <h1>Poly Scam</h1>
+                    <h1>Monopoly Scam Protection</h1>
                 </div>
-                <nav>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="main-nav">
                     <ul>
                         <li><a href="#scams">Scam Types</a></li>
                         <li><a href="#protection">Protection Tips</a></li>
@@ -374,7 +459,7 @@
                 </div>
                 
                 <div class="scam-card">
-                    <div class="scam-card-header" style="background-color: var(--monopoly-yellow);">
+                    <div class="scam-card-header" style="background-color: var(--monopoly-yellow); color: #333;">
                         <h3>Love Scams</h3>
                     </div>
                     <div class="scam-card-body">
@@ -394,12 +479,32 @@
                 </div>
                 
                 <div class="scam-card">
-                    <div class="scam-card-header" style="background-color: #e91e63;">
+                    <div class="scam-card-header" style="background-color: var(--monopoly-pink);">
                         <h3>Bank & Government Impersonation</h3>
                     </div>
                     <div class="scam-card-body">
                         <p>Scammers pretending to be from banks or government agencies to steal personal information.</p>
                         <p><strong>Red Flags:</strong> Threats of account suspension, requests for personal details, urgency to act.</p>
+                    </div>
+                </div>
+                
+                <div class="scam-card">
+                    <div class="scam-card-header" style="background-color: var(--monopoly-light-blue);">
+                        <h3>Loan Scams</h3>
+                    </div>
+                    <div class="scam-card-body">
+                        <p>Offers of quick loans with low interest rates that require upfront fees.</p>
+                        <p><strong>Red Flags:</strong> Guaranteed approval, requests for upfront fees, no physical address.</p>
+                    </div>
+                </div>
+                
+                <div class="scam-card">
+                    <div class="scam-card-header" style="background-color: #5d4037; color: white;">
+                        <h3>Fake Refund Scams</h3>
+                    </div>
+                    <div class="scam-card-body">
+                        <p>Claims of overpaid bills or taxes with instructions to claim refunds through suspicious links.</p>
+                        <p><strong>Red Flags:</strong> Unsolicited refund offers, requests for personal information, urgency to claim.</p>
                     </div>
                 </div>
             </div>
@@ -530,21 +635,38 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2025 Monopoly Scam Protection for Young Malaysians. All rights reserved.</p>
+                <p>&copy; 2023 Monopoly Scam Protection for Young Malaysians. All rights reserved.</p>
                 <p>This website is for educational purposes to raise scam awareness.</p>
-                <p>Developed by Ali Sena Danishwer</p>
                 <div class="social-links">
-                    <a href="#">📘</a>
-                    <a href="#">📷</a>
-                    <a href="#">🐦</a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Quiz functionality
+        // Mobile menu functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            const navLinks = mainNav.querySelectorAll('a');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                mainNav.querySelector('ul').classList.toggle('active');
+            });
+            
+            // Close mobile menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        mainNav.querySelector('ul').classList.remove('active');
+                    }
+                });
+            });
+            
+            // Quiz functionality
             const options = document.querySelectorAll('.quiz-option');
             const submitBtn = document.getElementById('submit-quiz');
             const resultDiv = document.getElementById('quiz-result');
@@ -599,6 +721,24 @@
                 
                 // Scroll to results
                 resultDiv.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
         });
     </script>
